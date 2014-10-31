@@ -133,8 +133,8 @@ alias dex2jar=~/Downloads/dex2jar-0.0.9.15/d2j-dex2jar.sh
 
 # Android aliases
 alias lc='adb logcat -C'
-alias gilog='adb logcat -C | grep -ri $0'
-alias glog='adb logcat -C | grep -r $0'
+alias gilog='adb logcat -C | grep -i $0'
+alias glog='adb logcat -C | grep $0'
 
 # Git aliases
 alias gs='git status'
