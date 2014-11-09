@@ -20,3 +20,21 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/bin:$PATH
+
+# Android aliases
+alias lc='adb logcat -C'
+alias gilog='adb logcat -C | grep -i $0'
+alias glog='adb logcat -C | grep $0'
+
+# Git aliases
+alias gs='git status'
+alias gc='git commit'
+alias ga='git add -u'
+alias gd='git diff'
+
+# Grep aliases
+alias gri='grep -ri $0'
+alias gr='grep -r $0'
+
+# Find aliases
+alias f='find . -name $0'
