@@ -119,7 +119,7 @@ export PATH=$PATH:~/Downloads/adt-bundle-linux-x86_64-20140321/sdk/platform-tool
 export PATH=$PATH:~/bin
 export PATH=$PATH:~/Programs/gradle-1.10/bin/
 
-# Use adb port 5048 if connected over ssh, so that I can forward 
+# Use adb port 5048 if connected over ssh, so that I can forward
 # my remote port to this machine
 if [[ -n $SSH_CONNECTION ]]; then
   export ANDROID_ADB_SERVER_PORT=5051
@@ -141,6 +141,7 @@ alias gs='git status'
 alias gc='git commit'
 alias ga='git add -u'
 alias gd='git diff'
+alias gl='git log'
 
 # Grep aliases
 alias gri='grep -ri $0'
@@ -148,3 +149,18 @@ alias gr='grep -r $0'
 
 # Find aliases
 alias f='find -name $0'
+
+function git() {
+    if [ "$1" = push ] && [[ "$3" = *"refs/heads"* ]] ; then
+        echo "ARE YOU SURE YOU WANT TO PUSH TO REFS/HEADS?"
+        echo -n "Think hard and type uppercase YES to skip Gerrit: "
+        read answer
+        if [ YES = "$answer" ]; then
+          command git "$@"
+        else
+          echo "Aborting command, push not executed."
+        fi
+    else
+        command git "$@"
+    fi
+}
