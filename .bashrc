@@ -119,14 +119,13 @@ export PATH=$PATH:~/Downloads/adt-bundle-linux-x86_64-20140321/sdk/platform-tool
 export PATH=$PATH:~/bin
 export PATH=$PATH:~/Programs/gradle-1.10/bin/
 
-# Use adb port 5048 if connected over ssh, so that I can forward
+# Use adb port 5048 if connected over ssh, so that I can forward 
 # my remote port to this machine
 if [[ -n $SSH_CONNECTION ]]; then
   export ANDROID_ADB_SERVER_PORT=5051
 fi
 
 . /usr/share/autojump/autojump.sh
-. ~/android/system/build/envsetup.sh
 
 export ANDROID_HOME=~/Downloads/adt-bundle-linux-x86_64-20140321/sdk/
 alias dex2jar=~/Downloads/dex2jar-0.0.9.15/d2j-dex2jar.sh
@@ -135,6 +134,17 @@ alias dex2jar=~/Downloads/dex2jar-0.0.9.15/d2j-dex2jar.sh
 alias lc='adb logcat -C'
 alias gilog='adb logcat -C | grep -i $0'
 alias glog='adb logcat -C | grep $0'
+alias flog='adb logcat | grep -A 10 FATAL'
+function fdo() {
+    adb shell pm force-dex-opt $1
+}
+function adbkill() {
+    adb shell ps | grep $1 | awk {'print $2'} | xargs adb shell kill
+}
+function afkill() {
+    pname=$1
+    fdo $pname && adbkill $pname
+}
 
 # Git aliases
 alias gs='git status'
@@ -149,6 +159,7 @@ alias gr='grep -r $0'
 
 # Find aliases
 alias f='find -name $0'
+eval `keychain --eval ~/.ssh/id_rsa`
 
 function git() {
     if [ "$1" = push ] && [[ "$3" = *"refs/heads"* ]] ; then
@@ -164,3 +175,7 @@ function git() {
         command git "$@"
     fi
 }
+
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/repos
+source /usr/local/bin/virtualenvwrapper.sh
