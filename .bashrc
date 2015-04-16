@@ -134,7 +134,7 @@ alias dex2jar=~/Downloads/dex2jar-0.0.9.15/d2j-dex2jar.sh
 alias lc='adb logcat -C'
 alias gilog='adb logcat -C | grep -i $0'
 alias glog='adb logcat -C | grep $0'
-alias flog='adb logcat | grep -A 10 FATAL'
+alias flog='adb logcat | grep -A 20 FATAL'
 function fdo() {
     adb shell pm force-dex-opt $1
 }
@@ -179,3 +179,4 @@ function git() {
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/repos
 source /usr/local/bin/virtualenvwrapper.sh
+export JAVA_HOME="/usr/lib/jvm/jdk1.8.0_05/"
